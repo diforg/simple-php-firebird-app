@@ -1,0 +1,44 @@
+version: "3.1"
+networks:
+    api:
+        driver: bridge
+volumes:
+    database:
+        driver: local
+services:
+    nginx:
+        image: nginx:alpine
+        container_name: api-nginx
+        restart: unless-stopped
+        tty: true
+        working_dir: /application
+        volumes:
+            - ./src:/application
+            - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - "8080:80"
+        networks:
+            - api
+    webserver:
+        image: diforg/ws-php8.1:1.0.2
+        container_name: ws-php8.1
+        restart: unless-stopped
+        tty: true
+        working_dir: /application
+        volumes:
+          - ./src:/application
+        networks:
+          - api
+    firebird:
+        image: jacobalberty/firebird:latest
+        container_name: db-firebird
+        environment:
+            ISC_PASSWORD: supersenha
+            FIREBIRD_DATABASE: mydb
+        volumes:
+            - ./data:/firebird/data
+        ports:
+            - "3050:3050"
+
+
+
