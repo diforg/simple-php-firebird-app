@@ -20,7 +20,7 @@ services:
         networks:
             - api
     webserver:
-        image: diforg/ws-php8.1:1.0.2
+        image: diforg/ws-php8.1:1.0.3
         container_name: ws-php8.1
         restart: unless-stopped
         tty: true

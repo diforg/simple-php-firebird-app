@@ -14,3 +14,9 @@ docker-compose up
 3. Acesse o CLI do container do web service
 
 docker exec -it ws-php8.1 /bin/bash
+
+4. Rode o Composer no bash do web service
+
+composer install
+
+
